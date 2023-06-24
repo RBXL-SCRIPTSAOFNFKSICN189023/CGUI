@@ -413,7 +413,7 @@ function notify(message)
 	return window
 end
 
-_G.lib = {
+_G.cLib = {
   newWindow = newWindow;
   yesOrNo = yesOrNo;
   numberInput = numberInput;
