@@ -11,16 +11,27 @@
 }]]
 
 local pcEsp = false
+local pcH = {}
+function highlightPc(a)
+  local b = Instance.new("Highlight", a)
+  b.OutlineColor = a.Screen.Color
+  b.FillTransparency = 1
+  b.OutlineTransparency = 0
+  a.Screen.Changed:Connect(function()
+    b.OutlineColor = a.Screen.Color
+  end)
+  b.Destroying:Connect(function()
+    local found = table.find(pcH, b)
+    if found then
+      table.remove(pcH, found)
+    end
+  end)
+  table.insert(pcH, b)
+end
 workspace.DescendantAdded:Connect(function(a)
   if a.Name == "ComputerTable" and pcEsp then
     task.wait(1)
-    local b = a.Screen.BillboardGui:Clone()
-    b.ImageLabel.ImageColor3 = a.Screen.Color
-    b.Parent = a.Screen
-    b.Enabled = true
-    a.Screen.Changed:Connect(function()
-      b.ImageLabel.ImageColor3 = a.Screen.Color
-    end)
+    highlightPc(a)
   end
 end)
 
@@ -30,13 +41,7 @@ _G.cLib.addCommand("computerEsp", {"pcesp"}, function()
     if a.Name == "ComputerTable" and pcEsp then
       task.spawn(function()
         task.wait(1)
-        local b = a.Screen.BillboardGui:Clone()
-        b.ImageLabel.ImageColor3 = a.Screen.Color
-        b.Parent = a.Screen
-        b.Enabled = true
-        a.Screen.Changed:Connect(function()
-          b.ImageLabel.ImageColor3 = a.Screen.Color
-        end)
+        highlightPc(a)
       end)
     end
   end
@@ -45,5 +50,9 @@ end)
 
 _G.cLib.addCommand("unComputerEsp", {"unpcesp"}, function()
   pcEsp = false
+  for _, a in ipairs(pcH) do
+    a:Destroy()
+  end
+  pcH = {}
   _G.cLib.notify("Pc Esp: OFF")
 end)
