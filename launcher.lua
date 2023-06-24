@@ -32,11 +32,17 @@ text2:TweenPosition(UDim2.new(0.5, 0, 1.5, 0), Enum.EasingDirection.In, Enum.Eas
 task.wait(1)
 
 local commands = {}
-function addCommand(command, alternateTags, args, exec)
-  commands[command] = {
-      alternateTags = alternateTags;
-      args = args;
+function addCommand(command, alt, exec)
+  for _, a in ipairs(alt) do
+    commands[a] = {
+      alt = alt;
       exec = exec;
+    }
+  end
+  commands[command] = {
+    alt = alt;
+    exec = exec;
+    show = true
   }
 end
 function newWindow(title)
@@ -414,6 +420,7 @@ function notify(message)
 end
 
 _G.cLib = {
+  addCommand = addCommand;
   newWindow = newWindow;
   yesOrNo = yesOrNo;
   numberInput = numberInput;
@@ -422,6 +429,26 @@ _G.cLib = {
   viewList = viewList;
   notify = notify;
 }
+
+addCommand("commands", {"cmds", "help"}, function()
+  local formatted = {}
+  for a, b in pairs(commands) do
+    if b.show then
+      formatted[a] = table.concat(b.alt)
+    end
+  end
+  viewList("Commands", formatted)
+end)
+
+local cmdBox = Instance.new("TextBox")
+cmdBox.Text = ""
+cmdBox.FocusLost:Connect(function()
+  if commands[cmdBox.Text] then
+    commands[cmdBox.Text]()
+  else
+    notify("NO CMD " .. cmdBox.Tect)
+  end
+end)
 
 if loadedString == "404: Not Found" then
   notify("NO SCRIPT")
