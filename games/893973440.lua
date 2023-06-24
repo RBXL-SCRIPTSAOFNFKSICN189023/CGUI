@@ -33,7 +33,7 @@ _G.cLib.addCommand("computerEsp", {"pcesp"}, function()
         local b = a.Screen.BillboardGui:Clone()
         b.ImageLabel.ImageColor3 = a.Screen.Color
         b.Parent = a.Screen
-      b.Enabled = true
+        b.Enabled = true
         a.Screen.Changed:Connect(function()
           b.ImageLabel.ImageColor3 = a.Screen.Color
         end)
