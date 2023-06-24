@@ -442,6 +442,8 @@ end)
 
 local cmdBox = Instance.new("TextBox")
 cmdBox.Text = ""
+cmdBox.Size = UDim2.new(1, -162, 0, 40)
+cmdBox.Position = UDim2.new(0, 108, 0, 0)
 cmdBox.FocusLost:Connect(function()
   if commands[cmdBox.Text] then
     commands[cmdBox.Text]()
