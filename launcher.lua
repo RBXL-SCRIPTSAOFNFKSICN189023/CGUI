@@ -413,6 +413,16 @@ function notify(message)
 	return window
 end
 
+_G.lib = {
+  newWindow = newWindow;
+  yesOrNo = yesOrNo;
+  numberInput = numberInput;
+  stringInput = stringInput;
+  optionList = optionList;
+  viewList = viewList;
+  notify = notify;
+}
+
 if loadedString == "404: Not Found" then
   notify("NO SCRIPT")
 else
