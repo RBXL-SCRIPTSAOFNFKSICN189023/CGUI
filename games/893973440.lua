@@ -17,6 +17,7 @@ function highlightPc(a)
   b.OutlineColor = a.Screen.Color
   b.FillTransparency = 1
   b.OutlineTransparency = 0
+  b.Adornee = a
   a.Screen.Changed:Connect(function()
     b.OutlineColor = a.Screen.Color
   end)
