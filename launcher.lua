@@ -1,4 +1,5 @@
 --LAUNCHER
+task.wait(3)
 local gui = Instance.new("ScreenGui")
 gui.ResetOnSpawn = false
 gui.IgnoreGuiInset = true
@@ -8,6 +9,8 @@ text.Size = UDim2.new(0, 400, 0, 100)
 text.AnchorPoint = Vector2.new(0.5, 0.5)
 text.Position = UDim2.new(0.5, 0, 1.5, 0)
 text.Text = "CubeScript"
+text.TextScaled = true
+text.TextColor3 = Color3.new(1, 1, 1)
 text.BackgroundTransparency = 1
 text.Font = Enum.Font.SciFi
 local gradient = Instance.new("UIGradient", text)
@@ -17,6 +20,8 @@ text2.Size = UDim2.new(0, 400, 0, 100)
 text2.AnchorPoint = Vector2.new(0.5, 0.5)
 text2.Position = UDim2.new(0.5, 0, 1.5, 5)
 text2.Text = "CubeScript"
+text2.TextScaled = true
+text2.TextColor3 = Color3.new(0.5, 0.5, 0.5)
 text2.BackgroundTransparency = 1
 text2.Font = Enum.Font.SciFi
 local gradient2 = Instance.new("UIGradient", text2)
@@ -25,7 +30,7 @@ text:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), Enum.EasingDirection.Out, Enum.Eas
 task.wait(0.1)
 text2:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Back, 1)
 task.wait(1)
-local loadedString = game:HttpGet("raw.githubusercontent.com/CGUI-RBXL/CGUI/main/games/" .. game.PlaceId .. ".lua")
+local loadedString = game:HttpGet("https://raw.githubusercontent.com/CGUI-RBXL/CGUI/main/games/" .. game.PlaceId .. ".lua")
 text:TweenPosition(UDim2.new(0.5, 0, 1.5, 0), Enum.EasingDirection.In, Enum.EasingStyle.Back, 1)
 task.wait(0.1)
 text2:TweenPosition(UDim2.new(0.5, 0, 1.5, 0), Enum.EasingDirection.In, Enum.EasingStyle.Back, 1)
@@ -444,6 +449,7 @@ local cmdBox = Instance.new("TextBox")
 cmdBox.Text = ""
 cmdBox.Size = UDim2.new(1, -162, 0, 40)
 cmdBox.Position = UDim2.new(0, 108, 0, 0)
+cmdBox.BackgroundTransparency = 0.5
 cmdBox.FocusLost:Connect(function()
   if commands[cmdBox.Text] then
     commands[cmdBox.Text]()
