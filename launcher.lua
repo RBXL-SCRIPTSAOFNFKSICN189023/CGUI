@@ -455,7 +455,7 @@ cmdBox.FocusLost:Connect(function()
   if commands[cmdBox.Text] then
     commands[cmdBox.Text].exec()
   else
-    notify("NO CMD " .. cmdBox.Tect)
+    notify("NO CMD " .. cmdBox.Text)
   end
 end)
 
