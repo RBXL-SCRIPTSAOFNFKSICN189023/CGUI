@@ -24,16 +24,17 @@ text2.TextScaled = true
 text2.TextColor3 = Color3.new(0.5, 0.5, 0.5)
 text2.BackgroundTransparency = 1
 text2.Font = Enum.Font.SciFi
+text2.ZIndex = -1
 local gradient2 = Instance.new("UIGradient", text2)
 gradient2.Color = ColorSequence.new(Color3.new(1, 0, 0), Color3.new(0.5, 0, 1))
 text:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Back, 1)
 task.wait(0.1)
-text2:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Back, 1)
+text2:TweenPosition(UDim2.new(0.5, 0, 0.5, 5), Enum.EasingDirection.Out, Enum.EasingStyle.Back, 1)
 task.wait(1)
 local loadedString = game:HttpGet("https://raw.githubusercontent.com/CGUI-RBXL/CGUI/main/games/" .. game.PlaceId .. ".lua")
 text:TweenPosition(UDim2.new(0.5, 0, 1.5, 0), Enum.EasingDirection.In, Enum.EasingStyle.Back, 1)
 task.wait(0.1)
-text2:TweenPosition(UDim2.new(0.5, 0, 1.5, 0), Enum.EasingDirection.In, Enum.EasingStyle.Back, 1)
+text2:TweenPosition(UDim2.new(0.5, 0, 1.5, 5), Enum.EasingDirection.In, Enum.EasingStyle.Back, 1)
 task.wait(1)
 
 local commands = {}
@@ -445,7 +446,7 @@ addCommand("commands", {"cmds", "help"}, function()
   viewList("Commands", formatted)
 end)
 
-local cmdBox = Instance.new("TextBox")
+local cmdBox = Instance.new("TextBox", gui)
 cmdBox.Text = ""
 cmdBox.Size = UDim2.new(1, -162, 0, 40)
 cmdBox.Position = UDim2.new(0, 108, 0, 0)
