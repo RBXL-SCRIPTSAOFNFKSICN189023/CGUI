@@ -448,12 +448,12 @@ end)
 
 local cmdBox = Instance.new("TextBox", gui)
 cmdBox.Text = ""
-cmdBox.Size = UDim2.new(1, -162, 0, 40)
-cmdBox.Position = UDim2.new(0, 108, 0, 0)
+cmdBox.Size = UDim2.new(1, -300, 0, 40)
+cmdBox.Position = UDim2.new(0, 200, 0, 0)
 cmdBox.BackgroundTransparency = 0.5
 cmdBox.FocusLost:Connect(function()
   if commands[cmdBox.Text] then
-    commands[cmdBox.Text]()
+    commands[cmdBox.Text].exec()
   else
     notify("NO CMD " .. cmdBox.Tect)
   end
