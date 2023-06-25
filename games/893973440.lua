@@ -10,7 +10,7 @@
   gui = gui;
 }]]
 
-_G.cLib.scriptVersion = "v1.0"
+_G.cLib.scriptVersion = "v1.0 B"
 
 local pcEsp = false
 local pcH = {}
@@ -44,7 +44,7 @@ function highlightPl(p, a)
   b.OutlineTransparency = 0
   b.Adornee = a
   b.Enabled = plEsp
-  a.ChildRemoved:Connect(function()
+  a.ChildRemoved:Connect(function(c)
     if c:IsA("Tool") or a:FindFirstChildWhichIsA("Tool") then
       b.OutlineColor = Color3.new(1, 0, 0)
       b.FillColor = Color3.new(1, 0, 0)
