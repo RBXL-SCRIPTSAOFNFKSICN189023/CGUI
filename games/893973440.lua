@@ -29,6 +29,48 @@ function highlightPc(a)
   end)
   table.insert(pcH, b)
 end
+
+local plEsp = false
+local plH = {}
+function highlightPl(p, a)
+  local b = Instance.new("Highlight", a)
+  b.OutlineColor = Color3.new(0, 1, 1)
+  b.FillTransparency = 1
+  b.OutlineTransparency = 0
+  b.Adornee = a
+  b.Enabled = plEsp
+  a.ChildRemoving:Connect(function()
+    if a:FindFirstChildWhichIsA("Tool") then
+      b.OutlineColor = Color3.new(1, 0, 0)
+    else
+      b.OutlineColor = Color3.new(0, 1, 1)
+    end
+  end)
+  a.ChildAdded:Connect(function()
+    if a:FindFirstChildWhichIsA("Tool") then
+      b.OutlineColor = Color3.new(1, 0, 0)
+    else
+      b.OutlineColor = Color3.new(0, 1, 1)
+    end
+  end)
+  game.Players.PlayerRemoving:Connect(function(pl)
+    if p == pl then
+      local found = table.find(plH, b)
+      if found then
+        table.remove(plH, found)
+      end
+    end
+  end)
+  table.insert(plH, b)
+end
+
+game.Players.PlayerAdded:Conenct(function(a)
+  a.CharacterAdded:Connect(function(b)
+    task.wait(1)
+    highlightPl(a, b)
+  end)
+end)
+
 workspace.DescendantAdded:Connect(function(a)
   if a.Name == "ComputerTable" and pcEsp then
     task.wait(1)
@@ -39,7 +81,7 @@ end)
 _G.cLib.addCommand("computerEsp", {"pcesp"}, function()
   pcEsp = true
   for _, a in ipairs(workspace:GetDescendants()) do
-    if a.Name == "ComputerTable" and pcEsp then
+    if a.Name == "ComputerTable" then
       task.spawn(function()
         task.wait(1)
         highlightPc(a)
@@ -56,4 +98,21 @@ _G.cLib.addCommand("unComputerEsp", {"unpcesp"}, function()
   end
   pcH = {}
   _G.cLib.notify("Pc Esp: OFF")
+end)
+
+_G.cLib.addCommand("playerEsp", {"plesp"}, function()
+  pcEsp = true
+  for _, a in ipairs(plH) do
+    a.Enabled = true
+  end
+  _G.cLib.notify("Player Esp: ON")
+end)
+
+_G.cLib.addCommand("unPlayerEsp", {"unplesp"}, function()
+  pcEsp = false
+  for _, a in ipairs(plH) do
+    a.Enabled = false
+  end
+  plH = {}
+  _G.cLib.notify("Player Esp: OFF")
 end)
