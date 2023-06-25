@@ -434,16 +434,21 @@ _G.cLib = {
   optionList = optionList;
   viewList = viewList;
   notify = notify;
+  gui = gui;
 }
 
 addCommand("commands", {"cmds", "help"}, function()
   local formatted = {}
   for a, b in pairs(commands) do
     if b.show then
-      formatted[a] = table.concat(b.alt)
+      formatted[a] = table.concat(b.alt, ", ")
     end
   end
   viewList("Commands", formatted)
+end)
+
+addCommand("scriptVersion", {"getScriptVersion", "gsv", "sv"}, function()
+  notify("loaded script " .. (_G.scriptVersion or "NIL))
 end)
 
 local cmdBox = Instance.new("TextBox", gui)
