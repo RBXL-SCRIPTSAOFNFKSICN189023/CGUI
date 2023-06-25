@@ -10,6 +10,8 @@
   gui = gui;
 }]]
 
+_G.cLib.scriptVersion = "v1.0"
+
 local pcEsp = false
 local pcH = {}
 function highlightPc(a)
@@ -43,7 +45,7 @@ function highlightPl(p, a)
   b.Adornee = a
   b.Enabled = plEsp
   a.ChildRemoved:Connect(function()
-    if a:FindFirstChildWhichIsA("Tool") then
+    if c:IsA("Tool") or a:FindFirstChildWhichIsA("Tool") then
       b.OutlineColor = Color3.new(1, 0, 0)
       b.FillColor = Color3.new(1, 0, 0)
     else
@@ -51,8 +53,8 @@ function highlightPl(p, a)
       b.FillColor = Color3.new(0, 1, 1)
     end
   end)
-  a.ChildAdded:Connect(function()
-    if a:FindFirstChildWhichIsA("Tool") then
+  a.ChildAdded:Connect(function(c)
+    if c:IsA("Tool") or a:FindFirstChildWhichIsA("Tool") then
       b.OutlineColor = Color3.new(1, 0, 0)
       b.FillColor = Color3.new(1, 0, 0)
     else
