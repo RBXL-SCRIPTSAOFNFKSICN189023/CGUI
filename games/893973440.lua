@@ -42,7 +42,7 @@ function highlightPl(p, a)
   b.OutlineTransparency = 0
   b.Adornee = a
   b.Enabled = plEsp
-  a.ChildRemoving:Connect(function()
+  a.ChildRemoved:Connect(function()
     if a:FindFirstChildWhichIsA("Tool") then
       b.OutlineColor = Color3.new(1, 0, 0)
       b.FillColor = Color3.new(1, 0, 0)
