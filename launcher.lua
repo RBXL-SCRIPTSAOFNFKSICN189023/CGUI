@@ -448,7 +448,7 @@ addCommand("commands", {"cmds", "help"}, function()
 end)
 
 addCommand("scriptVersion", {"getScriptVersion", "gsv", "sv"}, function()
-  notify("loaded script " .. (_G.scriptVersion or "NIL))
+  notify("loaded script " .. (_G.scriptVersion or "NIL"))
 end)
 
 local cmdBox = Instance.new("TextBox", gui)
