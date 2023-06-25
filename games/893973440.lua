@@ -45,7 +45,7 @@ function highlightPl(p, a)
   b.Adornee = a
   b.Enabled = plEsp
   a.ChildRemoved:Connect(function(c)
-    if c:IsA("Tool") or a:FindFirstChildWhichIsA("Tool") then
+    if a:FindFirstChild("Hammer") then
       b.OutlineColor = Color3.new(1, 0, 0)
       b.FillColor = Color3.new(1, 0, 0)
     else
@@ -54,7 +54,7 @@ function highlightPl(p, a)
     end
   end)
   a.ChildAdded:Connect(function(c)
-    if c:IsA("Tool") or a:FindFirstChildWhichIsA("Tool") then
+    if c.Name == "Hammer" or a:FindFirstChild("Hammer") then
       b.OutlineColor = Color3.new(1, 0, 0)
       b.FillColor = Color3.new(1, 0, 0)
     else
