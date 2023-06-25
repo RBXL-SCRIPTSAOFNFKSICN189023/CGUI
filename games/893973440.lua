@@ -64,7 +64,7 @@ function highlightPl(p, a)
   table.insert(plH, b)
 end
 
-game.Players.PlayerAdded:Conenct(function(a)
+game.Players.PlayerAdded:Connect(function(a)
   a.CharacterAdded:Connect(function(b)
     task.wait(1)
     highlightPl(a, b)
