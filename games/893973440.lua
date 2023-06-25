@@ -15,11 +15,13 @@ local pcH = {}
 function highlightPc(a)
   local b = Instance.new("Highlight", a)
   b.OutlineColor = a.Screen.Color
-  b.FillTransparency = 1
+  b.FillColor = a.Screen.Color
+  b.FillTransparency = .75
   b.OutlineTransparency = 0
   b.Adornee = a
   a.Screen.Changed:Connect(function()
     b.OutlineColor = a.Screen.Color
+    b.FillColor = a.Screen.Color
   end)
   b.Destroying:Connect(function()
     local found = table.find(pcH, b)
@@ -35,22 +37,27 @@ local plH = {}
 function highlightPl(p, a)
   local b = Instance.new("Highlight", a)
   b.OutlineColor = Color3.new(0, 1, 1)
-  b.FillTransparency = 1
+  b.FillColor = Color3.new(0, 1, 1)
+  b.FillTransparency = .75
   b.OutlineTransparency = 0
   b.Adornee = a
   b.Enabled = plEsp
   a.ChildRemoving:Connect(function()
     if a:FindFirstChildWhichIsA("Tool") then
       b.OutlineColor = Color3.new(1, 0, 0)
+      b.FillColor = Color3.new(1, 0, 0)
     else
       b.OutlineColor = Color3.new(0, 1, 1)
+      b.FillColor = Color3.new(0, 1, 1)
     end
   end)
   a.ChildAdded:Connect(function()
     if a:FindFirstChildWhichIsA("Tool") then
       b.OutlineColor = Color3.new(1, 0, 0)
+      b.FillColor = Color3.new(1, 0, 0)
     else
       b.OutlineColor = Color3.new(0, 1, 1)
+      b.FillColor = Color3.new(0, 1, 1)
     end
   end)
   game.Players.PlayerRemoving:Connect(function(pl)
