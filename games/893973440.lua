@@ -78,6 +78,17 @@ game.Players.PlayerAdded:Connect(function(a)
   end)
 end)
 
+for _, a in ipairs(game.Players:GetPlayers()) do
+  if a.Character then
+    task.wait(1)
+    highlightPl(a, a.Character)
+  end
+  a.CharacterAdded:Connect(function(b)
+    task.wait(1)
+    highlightPl(a, b)
+  end)
+end
+
 workspace.DescendantAdded:Connect(function(a)
   if a.Name == "ComputerTable" and pcEsp then
     task.wait(1)
@@ -108,7 +119,7 @@ _G.cLib.addCommand("unComputerEsp", {"unpcesp"}, function()
 end)
 
 _G.cLib.addCommand("playerEsp", {"plesp"}, function()
-  pcEsp = true
+  plEsp = true
   for _, a in ipairs(plH) do
     a.Enabled = true
   end
@@ -116,7 +127,7 @@ _G.cLib.addCommand("playerEsp", {"plesp"}, function()
 end)
 
 _G.cLib.addCommand("unPlayerEsp", {"unplesp"}, function()
-  pcEsp = false
+  plEsp = false
   for _, a in ipairs(plH) do
     a.Enabled = false
   end
