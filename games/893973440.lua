@@ -35,7 +35,7 @@ local plEsp = false
 local plH = Instance.new("Folder", game.CoreGui)
 plH.Name = "CubeScript : FTF Player Highlights"
 function highlightPl(p, a)
-  local b = Instance.new("Highlight", a)
+  local b = Instance.new("Highlight", plH)
   b.OutlineColor = Color3.new(0, 1, 1)
   b.FillColor = Color3.new(0, 1, 1)
   b.FillTransparency = .75
