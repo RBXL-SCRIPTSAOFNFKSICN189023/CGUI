@@ -13,9 +13,10 @@
 _G.cLib.scriptVersion = "v1.0 B"
 
 local pcEsp = false
-local pcH = {}
+local pcH = Instance.new("Folder", game.CoreGui)
+pcH.Name = "CubeScript : FTF PC Highlights"
 function highlightPc(a)
-  local b = Instance.new("Highlight", a)
+  local b = Instance.new("Highlight", pcH)
   b.OutlineColor = a.Screen.Color
   b.FillColor = a.Screen.Color
   b.FillTransparency = .75
@@ -26,16 +27,13 @@ function highlightPc(a)
     b.FillColor = a.Screen.Color
   end)
   b.Destroying:Connect(function()
-    local found = table.find(pcH, b)
-    if found then
-      table.remove(pcH, found)
-    end
+    b:Destroy()
   end)
-  table.insert(pcH, b)
 end
 
 local plEsp = false
-local plH = {}
+local plH = Instance.new("Folder", game.CoreGui)
+plH.Name = "CubeScript : FTF Player Highlights"
 function highlightPl(p, a)
   local b = Instance.new("Highlight", a)
   b.OutlineColor = Color3.new(0, 1, 1)
@@ -44,55 +42,17 @@ function highlightPl(p, a)
   b.OutlineTransparency = 0
   b.Adornee = a
   b.Enabled = plEsp
-  a.ChildRemoved:Connect(function(c)
-    if a:FindFirstChild("Hammer") then
-      b.OutlineColor = Color3.new(1, 0, 0)
-      b.FillColor = Color3.new(1, 0, 0)
-    else
-      b.OutlineColor = Color3.new(0, 1, 1)
-      b.FillColor = Color3.new(0, 1, 1)
-    end
-  end)
-  a.ChildAdded:Connect(function(c)
-    if c.Name == "Hammer" or a:FindFirstChild("Hammer") then
-      b.OutlineColor = Color3.new(1, 0, 0)
-      b.FillColor = Color3.new(1, 0, 0)
-    else
-      b.OutlineColor = Color3.new(0, 1, 1)
-      b.FillColor = Color3.new(0, 1, 1)
-    end
-  end)
-  game.Players.PlayerRemoving:Connect(function(pl)
-    if p == pl then
-      local found = table.find(plH, b)
-      if found then
-        table.remove(plH, found)
-      end
-    end
-  end)
-  table.insert(plH, b)
-end
-
-game.Players.PlayerAdded:Connect(function(a)
-  a.CharacterAdded:Connect(function(b)
-    task.wait(1)
-    highlightPl(a, b)
-  end)
-end)
-
-for _, a in ipairs(game.Players:GetPlayers()) do
-  if a.Character then
-    task.wait(1)
-    highlightPl(a, a.Character)
+  if a:FindFirstChild("Hammer") then
+    b.OutlineColor = Color3.new(1, 0, 0)
+    b.FillColor = Color3.new(1, 0, 0)
+  else
+    b.OutlineColor = Color3.new(0, 1, 1)
+    b.FillColor = Color3.new(0, 1, 1)
   end
-  a.CharacterAdded:Connect(function(b)
-    task.wait(1)
-    highlightPl(a, b)
-  end)
 end
 
 workspace.DescendantAdded:Connect(function(a)
-  if a.Name == "ComputerTable" and pcEsp then
+  if a.Name == "ComputerTable" then
     task.wait(1)
     highlightPc(a)
   end
@@ -113,26 +73,26 @@ end)
 
 _G.cLib.addCommand("unComputerEsp", {"unpcesp"}, function()
   pcEsp = false
-  for _, a in ipairs(pcH) do
-    a:Destroy()
-  end
-  pcH = {}
+  pcH:ClearAllChildren()
   _G.cLib.notify("Pc Esp: OFF")
 end)
 
 _G.cLib.addCommand("playerEsp", {"plesp"}, function()
   plEsp = true
-  for _, a in ipairs(plH) do
-    a.Enabled = true
-  end
   _G.cLib.notify("Player Esp: ON")
+  while plEsp do
+    for _, a in ipairs(game.Players:GetPlayers()) do
+      if a.Character then
+        highlightPl(a, a.Character)
+      end
+    end
+    task.wait(1)
+    plH:ClearAllChildren()
+  end
 end)
 
 _G.cLib.addCommand("unPlayerEsp", {"unplesp"}, function()
   plEsp = false
-  for _, a in ipairs(plH) do
-    a.Enabled = false
-  end
-  plH = {}
+  plH:ClearAllChildren()
   _G.cLib.notify("Player Esp: OFF")
 end)
