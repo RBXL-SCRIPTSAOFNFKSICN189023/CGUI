@@ -93,6 +93,7 @@ end)
 
 _G.cLib.addCommand("unPlayerEsp", {"unplesp"}, function()
   plEsp = false
+  task.wait(2)
   plH:ClearAllChildren()
-  _G.cLib.notify("Player Esp: OFF")
+  _G.cLib.notify("Player Esp: OFF (Allow up to 2 seconds)")
 end)
