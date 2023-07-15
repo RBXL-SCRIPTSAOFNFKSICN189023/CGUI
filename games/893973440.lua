@@ -15,20 +15,28 @@ _G.cLib.scriptVersion = "v1.0 B"
 local pcEsp = false
 local pcH = Instance.new("Folder", game.CoreGui)
 pcH.Name = "CubeScript : FTF PC Highlights"
+function verifyPc(a)
+  if a:FindFirstChild("ComputerTrigger1") and a:FindFirstChild("Screen") then
+    return true
+  end
+  return false
+end
 function highlightPc(a)
-  local b = Instance.new("Highlight", pcH)
-  b.OutlineColor = a.Screen.Color
-  b.FillColor = a.Screen.Color
-  b.FillTransparency = .75
-  b.OutlineTransparency = 0
-  b.Adornee = a
-  a.Screen.Changed:Connect(function()
+  if verifyPc(a) then
+    local b = Instance.new("Highlight", pcH)
     b.OutlineColor = a.Screen.Color
     b.FillColor = a.Screen.Color
-  end)
-  b.Destroying:Connect(function()
-    b:Destroy()
-  end)
+    b.FillTransparency = .75
+    b.OutlineTransparency = 0
+    b.Adornee = a
+    a.Screen.Changed:Connect(function()
+      b.OutlineColor = a.Screen.Color
+      b.FillColor = a.Screen.Color
+    end)
+    b.Destroying:Connect(function()
+      b:Destroy()
+    end)
+  end
 end
 
 local plEsp = false
@@ -52,19 +60,20 @@ function highlightPl(p, a)
 end
 
 workspace.DescendantAdded:Connect(function(a)
-  if a.Name == "ComputerTable" then
+  if a.Name == "ComputerTrigger1" and pcEsp then
     task.wait(1)
-    highlightPc(a)
+    highlightPc(a.Parent)
   end
 end)
 
 _G.cLib.addCommand("computerEsp", {"pcesp"}, function()
   pcEsp = true
+  pcH:ClearAllChildren()
   for _, a in ipairs(workspace:GetDescendants()) do
-    if a.Name == "ComputerTable" then
+    if a.Name == "ComputerTrigger1" then
       task.spawn(function()
         task.wait(1)
-        highlightPc(a)
+        highlightPc(a.Parent)
       end)
     end
   end
@@ -93,7 +102,7 @@ end)
 
 _G.cLib.addCommand("unPlayerEsp", {"unplesp"}, function()
   plEsp = false
+  _G.cLib.notify("Player Esp: OFF (Allow up to 2 seconds)")
   task.wait(2)
   plH:ClearAllChildren()
-  _G.cLib.notify("Player Esp: OFF (Allow up to 2 seconds)")
 end)
