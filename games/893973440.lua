@@ -10,7 +10,7 @@
   gui = gui;
 }]]
 
-_G.cLib.scriptVersion = "v1.0 B"
+_G.cLib.scriptVersion = "v1.1"
 
 local pcEsp = false
 local pcH = Instance.new("Folder", game.CoreGui)
@@ -60,7 +60,7 @@ function highlightPl(p, a)
 end
 
 workspace.DescendantAdded:Connect(function(a)
-  if a.Name == "ComputerTrigger1" and pcEsp then
+  if a.Name == "ComputerTrigger1" and a.Parent.Name == "ComputerTable" and pcEsp then
     task.wait(1)
     highlightPc(a.Parent)
   end
@@ -70,7 +70,7 @@ _G.cLib.addCommand("computerEsp", {"pcesp"}, function()
   pcEsp = true
   pcH:ClearAllChildren()
   for _, a in ipairs(workspace:GetDescendants()) do
-    if a.Name == "ComputerTrigger1" then
+    if a.Name == "ComputerTrigger1" and a.Parent.Name == "ComputerTable" then
       task.spawn(function()
         task.wait(1)
         highlightPc(a.Parent)
