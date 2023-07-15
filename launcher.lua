@@ -448,7 +448,11 @@ addCommand("commands", {"cmds", "help"}, function()
 end)
 
 addCommand("scriptVersion", {"getScriptVersion", "gsv", "sv"}, function()
-  notify("loaded script " .. (_G.scriptVersion or "NIL"))
+  notify("loaded script " .. (_G.cLib.scriptVersion or "NIL"))
+end)
+
+addCommand("infiniteyeild", {"iy"}, function()
+  loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 end)
 
 local cmdBox = Instance.new("TextBox", gui)
