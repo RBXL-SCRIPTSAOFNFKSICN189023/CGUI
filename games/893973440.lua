@@ -59,31 +59,26 @@ function highlightPl(p, a)
   end
 end
 
-workspace.DescendantAdded:Connect(function(a)
-  if a.Name == "ComputerTrigger1" and a.Parent.Name == "ComputerTable" and pcEsp then
-    task.wait(1)
-    highlightPc(a.Parent)
-  end
-end)
-
 _G.cLib.addCommand("computerEsp", {"pcesp"}, function()
   pcEsp = true
   pcH:ClearAllChildren()
-  for _, a in ipairs(workspace:GetDescendants()) do
-    if a.Name == "ComputerTrigger1" and a.Parent.Name == "ComputerTable" then
-      task.spawn(function()
-        task.wait(1)
+  while pcEsp do
+    for _, a in ipairs(workspace:GetDescendants()) do
+      if a.Name == "ComputerTrigger1" and a.Parent.Name == "ComputerTable" then
         highlightPc(a.Parent)
-      end)
+      end
     end
+    task.wait(1)
+    pcH:ClearAllChildren()
   end
   _G.cLib.notify("Pc Esp: ON")
 end)
 
 _G.cLib.addCommand("unComputerEsp", {"unpcesp"}, function()
   pcEsp = false
+  _G.cLib.notify("Pc Esp: OFF (Allow up to 2 seconds)")
+  task.wait(2)
   pcH:ClearAllChildren()
-  _G.cLib.notify("Pc Esp: OFF")
 end)
 
 _G.cLib.addCommand("playerEsp", {"plesp"}, function()
