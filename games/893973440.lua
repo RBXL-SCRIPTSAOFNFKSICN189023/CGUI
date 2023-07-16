@@ -29,13 +29,6 @@ function highlightPc(a)
     b.FillTransparency = .75
     b.OutlineTransparency = 0
     b.Adornee = a
-    a.Screen.Changed:Connect(function()
-      b.OutlineColor = a.Screen.Color
-      b.FillColor = a.Screen.Color
-    end)
-    b.Destroying:Connect(function()
-      b:Destroy()
-    end)
   end
 end
 
@@ -61,7 +54,7 @@ end
 
 _G.cLib.addCommand("computerEsp", {"pcesp"}, function()
   pcEsp = true
-  pcH:ClearAllChildren()
+  _G.cLib.notify("Pc Esp: ON")
   while pcEsp do
     for _, a in ipairs(workspace:GetDescendants()) do
       if a.Name == "ComputerTrigger1" and a.Parent.Name == "ComputerTable" then
@@ -71,7 +64,6 @@ _G.cLib.addCommand("computerEsp", {"pcesp"}, function()
     task.wait(1)
     pcH:ClearAllChildren()
   end
-  _G.cLib.notify("Pc Esp: ON")
 end)
 
 _G.cLib.addCommand("unComputerEsp", {"unpcesp"}, function()
