@@ -10,7 +10,7 @@
   gui = gui;
 }]]
 
-_G.cLib.scriptVersion = "v1.1"
+_G.cLib.scriptVersion = "v1.1B"
 
 local pcEsp = false
 local pcH = Instance.new("Folder", game.CoreGui)
