@@ -14,18 +14,24 @@ local sounds = {
   "rbxassetid://5799014146";
   "rbxassetid://5810686185";
 }
+function troll()
+    local sound = Instance.new("Sound", workspace)
+    sound.SoundId = sounds[math.random(1, #sounds)
+    sound.Volume = 10
+    repeat task.wait() until sound.IsLoaded
+    sound:Play()
+    task.wait(sound.TimeLength)
+    sound:Destroy()
+end
+troll()
+troll()
+troll()
 rem.OnClientEvent("NotifyDonationParticipants"):Connect(function(from, to, ammount)
     if to == game.Players.LocalPlayer.Name or to == game.Players.LocalPlayer or to == game.Players.LocalPlayer.UserId then
         robax += ammount
         local times = math.round(ammount / 10)
         for i = 1, times do
-            local sound = Instance.new("Sound", workspace)
-            sound.SoundId = sounds[math.random(1, #sounds)
-            sound.Volume = 10
-            repeat task.wait() until sound.IsLoaded
-            sound:Play()
-            task.wait(sound.TimeLength)
-            sound:Destroy()
+            troll()
         end
     end
 end);
