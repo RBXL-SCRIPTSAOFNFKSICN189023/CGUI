@@ -26,7 +26,7 @@ print("Checkpoint 2")
 rem.OnClientEvent("NotifyDonationParticipants"):Connect(function(from, to, ammount)
     if to == game.Players.LocalPlayer.Name or to == game.Players.LocalPlayer or to == game.Players.LocalPlayer.UserId then
         robax += ammount
-        local times = math.round(ammount / 10)
+        local times = math.round(ammount)
         for i = 1, times do
             troll()
         end
