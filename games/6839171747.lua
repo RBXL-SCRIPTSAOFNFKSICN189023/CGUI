@@ -18,7 +18,7 @@ end)
 
 addCommand("unEntityNotifier", {"unen"}, function()
     en = false
-    hint("Entity notifier ON", 3)
+    hint("Entity notifier OFF", 3)
 end)
 
 workspace.ChildAdded:Connect(function(a)
