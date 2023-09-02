@@ -21,6 +21,31 @@ addCommand("unEntityNotifier", {"unen"}, function()
     hint("Entity notifier OFF", 3)
 end)
 
+function isEntity(Entity)
+    local Main = nil
+    local timeOut = tick() + 5
+    repeat task.wait() until #Entity:GetChildren() > 0 or tick() >= timeOut
+    if #Entity:GetChildren() > 0 then
+        Main = Entity:GetChildren()[1]
+    end
+    if Main then
+        print(Main.Position.Y)
+        return Main.Position.Y > -999
+    else
+        warn("Entity never got a Main")
+        return false
+    end
+end
+
+function ding()
+    local Sound = Instance.new("Sound")
+    Sound.Parent = game.SoundService
+    Sound.SoundId = "rbxassetid://550209561"
+    Sound.Volume = 5
+    Sound.PlayOnRemove = true
+    Sound:Destroy()
+end
+
 workspace.ChildAdded:Connect(function(a)
     if en then
         if a.Name == "RushMoving" and isEntity(a) then
