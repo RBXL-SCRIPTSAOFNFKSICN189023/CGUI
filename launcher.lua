@@ -31,7 +31,7 @@ text:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), Enum.EasingDirection.Out, Enum.Eas
 task.wait(0.1)
 text2:TweenPosition(UDim2.new(0.5, 0, 0.5, 5), Enum.EasingDirection.Out, Enum.EasingStyle.Back, 1)
 task.wait(1)
-local loadedString = game:HttpGet("https://raw.githubusercontent.com/CGUI-RBXL/CGUI/main/games/" .. game.PlaceId .. ".lua")
+local loadedString = game:HttpGet("https://raw.githubusercontent.com/RBXL-SCRIPTSAOFNFKSICN189023/CGUI/main/games/" .. game.PlaceId .. ".lua")
 text:TweenPosition(UDim2.new(0.5, 0, 1.5, 0), Enum.EasingDirection.In, Enum.EasingStyle.Back, 1)
 task.wait(0.1)
 text2:TweenPosition(UDim2.new(0.5, 0, 1.5, 5), Enum.EasingDirection.In, Enum.EasingStyle.Back, 1)
