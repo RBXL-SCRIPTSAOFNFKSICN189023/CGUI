@@ -425,6 +425,29 @@ function notify(message)
 	return window
 end
 
+function hint(message, duration)
+	local window = newWindow("Notification")
+	local holder = window.content.Parent
+	holder.AnchorPoint = Vector2.new(0.5, 0)
+	holder.Position = UDim2.new(0.5, 0, 0, 10)
+	holder.Size = UDim2.new(0, 400, 0, 225)
+	local corner = Instance.new("UICorner", okButton)
+	corner.CornerRadius = UDim.new(0, 16)
+
+	local textLabel = Instance.new("TextLabel", window.content)
+	textLabel.Size = UDim2.new(0, 350, 0, 100)
+	textLabel.Position = UDim2.new(0, 25, 0, 75)
+	textLabel.BackgroundTransparency = 1
+	textLabel.TextColor3 = Color3.new(1, 1, 1)
+	textLabel.TextScaled = true
+	textLabel.Font = Enum.Font.SciFi
+	textLabel.Text = message
+
+	task.delay(duration or 5, function()  window.forceClose() end)
+
+	return window
+end
+
 _G.cLib = {
   addCommand = addCommand;
   newWindow = newWindow;
@@ -434,6 +457,7 @@ _G.cLib = {
   optionList = optionList;
   viewList = viewList;
   notify = notify;
+  hint = hint;
   gui = gui;
 }
 
