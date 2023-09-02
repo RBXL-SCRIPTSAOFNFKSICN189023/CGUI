@@ -21,6 +21,33 @@ addCommand("unEntityNotifier", {"unen"}, function()
     hint("Entity notifier OFF", 3)
 end)
 
+addCommand("lightOrb", {"orb"}, function()
+    local tool = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
+    tool.Name = "LightOrb"
+    tool.TextureId = "rbxassetid://10928806245"
+    tool:SetAttribute("LightSource", true)
+    tool:SetAttribute("ToolOffset", Vector3.yAxis * 0.1)
+    local orb = Instance.new("Part", tool)
+    orb.Material = Enum.Material.Neon
+    orb.Shape = Enum.PartType.Ball
+    orb.Name = "Handle"
+    orb.Size = Vector3.one * 2
+    orb.CanCollide = false
+    local light = Instance.new("PointLight", orb)
+    light.Brightness = 1
+    light.Range = 60
+    light.Shadows = true
+    local light2 = Instance.new("PointLight", orb)
+    light2.Brightness = 0.25
+    light2.Range = 60
+    light2.Shadows = false
+    local animations = Instance.new("Folder", tool)
+    animations.Name = "Animations"
+    local animation = Instance.new("Animation", animations)
+    animation.Name = "idle"
+    animation.AnimationId = "rbxassetid://12405472102"
+end)
+
 function isEntity(Entity)
     local Main = nil
     local timeOut = tick() + 5
